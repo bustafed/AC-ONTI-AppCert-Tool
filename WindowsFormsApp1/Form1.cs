@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -241,6 +240,12 @@ namespace WindowsFormsApp1
                 textBox5.Font = new Font(textBox5.Font, FontStyle.Regular);
                 textBox5.Text = folderBrowserDialog1.SelectedPath;
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
         }
     }
 }
