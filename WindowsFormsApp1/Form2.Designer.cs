@@ -95,9 +95,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(229, 126);
+            this.button4.Location = new System.Drawing.Point(184, 126);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(113, 46);
+            this.button4.Size = new System.Drawing.Size(185, 46);
             this.button4.TabIndex = 6;
             this.button4.Text = "Generar PFX";
             this.button4.UseVisualStyleBackColor = true;
