@@ -25,7 +25,7 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
@@ -246,6 +246,11 @@ namespace WindowsFormsApp1
         {
             Form2 form2 = new Form2();
             form2.Show();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
