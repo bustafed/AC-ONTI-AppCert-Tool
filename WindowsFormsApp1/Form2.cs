@@ -31,12 +31,21 @@ namespace WindowsFormsApp1
             {
                 if (textBox4.Text.Equals(textBox5.Text))
                 {
-                    createPFX();
-                    MessageBox.Show("PFX creado correctamente, resguárdelo y no lo distribuya");
+                    if (createPFX())
+                    {
+                        MessageBox.Show("PFX creado correctamente, resguárdelo y no lo distribuya.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Las contraseñas no coinciden");
+                    if (textBox5.Text.Equals("Confirmar contraseña"))
+                    {
+                        MessageBox.Show("Debe ingresar una contraseña");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Las contraseñas no coinciden");
+                    }
                 }
             }
             else
@@ -45,7 +54,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void createPFX()
+        private bool createPFX()
         {
             using (X509Certificate2 cert = new X509Certificate2(pathToCert))
             {
@@ -53,13 +62,24 @@ namespace WindowsFormsApp1
 
                 using (RSA key = RSA.Create())
                 {
-                    using (X509Certificate2 certWithKey = cert.CopyWithPrivateKey(ImportPrivateKey(base64)))
+                    try
                     {
-                        byte[] pkcs12 = certWithKey.Export(X509ContentType.Pfx, textBox4.Text);
-                        File.WriteAllBytes(folderBrowserDialog1.SelectedPath+"/"+pfxName+".pfx", pkcs12);
+                        using (X509Certificate2 certWithKey = cert.CopyWithPrivateKey(ImportPrivateKey(base64)))
+                        {
+                            byte[] pkcs12 = certWithKey.Export(X509ContentType.Pfx, textBox4.Text);
+                            File.WriteAllBytes(folderBrowserDialog1.SelectedPath + "/" + pfxName + ".pfx", pkcs12);
+                        }
+                    } catch (Exception e){ 
+                        if (e.Message.Equals("The provided key does not match the public key for this certificate.\r\nParameter name: privateKey"))
+                        {
+                            MessageBox.Show("La clave privada no corresponde al certificado seleccionado.\n" +
+                                "Asegúrese de elegir la clave privada que fue generada junto al CSR.");
+                            return false;
+                        }
                     }
                 }
             }
+            return true;
         }
 
         public static RSACryptoServiceProvider ImportPrivateKey(string pem)
