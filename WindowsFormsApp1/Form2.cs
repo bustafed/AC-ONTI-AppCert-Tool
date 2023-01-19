@@ -33,7 +33,8 @@ namespace WindowsFormsApp1
                 {
                     if (createPFX())
                     {
-                        MessageBox.Show("PFX creado correctamente, resguárdelo y no lo distribuya.");
+                        MessageBox.Show("PFX creado correctamente, resguárdelo y no lo distribuya.\n" +
+                            "No olvide la contraseña, deberá ser utilizada para instalar el certificado.");
                     }
                 }
                 else
