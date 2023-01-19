@@ -19,8 +19,6 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
 
-        bool dllCheck = false;
-
         public Form1()
         {
             InitializeComponent();
@@ -41,32 +39,17 @@ namespace WindowsFormsApp1
             if (validator())
             {
                 GeneratePkcs10(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, RootLenght.RootLength2048, out csr, out key);
-                MessageBox.Show("CSR y KEY generados con éxito");
+                MessageBox.Show("CSR y KEY generados con éxito.\n" +
+                    "No elimine ni divulgue el archivo KEY.");
             }
             else
             {
-                if (dllCheck)
-                {
-                    MessageBox.Show("Por favor revise todos los campos");
-                }
+                MessageBox.Show("Por favor revise todos los campos");
             }
         }
 
         private bool validator()
         {
-            foreach (string a in Directory.GetFiles("./"))
-            {
-                if (a.Contains("BouncyCastle.Crypto.dll"))
-                {
-                    dllCheck=true;
-                    break;
-                }
-            }
-            if (!dllCheck)
-            {
-                MessageBox.Show("Asegúrese que el archivo BouncyCastle.Crypto.dll se encuentra en la misma carpeta que el ejecutable");
-                return false;
-            }
             if (folderBrowserDialog1.SelectedPath.Equals(""))
             {
                 return false;

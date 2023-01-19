@@ -98,7 +98,7 @@
             this.button4.Location = new System.Drawing.Point(229, 126);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(113, 46);
-            this.button4.TabIndex = 4;
+            this.button4.TabIndex = 6;
             this.button4.Text = "Generar PFX";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -129,7 +129,7 @@
             this.textBox4.Location = new System.Drawing.Point(6, 126);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(172, 20);
-            this.textBox4.TabIndex = 8;
+            this.textBox4.TabIndex = 4;
             this.textBox4.Text = "Ingresar contraseña para el PFX";
             this.textBox4.Enter += new System.EventHandler(this.textBox4_Enter);
             this.textBox4.Leave += new System.EventHandler(this.textBox4_Leave);
@@ -140,7 +140,7 @@
             this.textBox5.Location = new System.Drawing.Point(6, 152);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(172, 20);
-            this.textBox5.TabIndex = 9;
+            this.textBox5.TabIndex = 5;
             this.textBox5.Text = "Confirmar contraseña";
             this.textBox5.Enter += new System.EventHandler(this.textBox5_Enter);
             this.textBox5.Leave += new System.EventHandler(this.textBox5_Leave);
