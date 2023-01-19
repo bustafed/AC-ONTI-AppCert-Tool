@@ -19,6 +19,7 @@ namespace WindowsFormsApp1
         string pathToCert = "";
         string pathToKey = "";
         string pfxName = "";
+        bool dllCheck = false;
 
         public Form2()
         {
@@ -50,7 +51,10 @@ namespace WindowsFormsApp1
             }
             else
             {
-                MessageBox.Show("Por favor revise todos los campos");
+                if (dllCheck)
+                {
+                    MessageBox.Show("Por favor revise todos los campos");
+                }
             }
         }
 
@@ -132,6 +136,19 @@ namespace WindowsFormsApp1
 
         private bool validator()
         {
+            foreach (string a in Directory.GetFiles("./"))
+            {
+                if (a.Contains("BouncyCastle.Crypto.dll"))
+                {
+                    dllCheck = true;
+                    break;
+                }
+            }
+            if (!dllCheck)
+            {
+                MessageBox.Show("Asegúrese que el archivo BouncyCastle.Crypto.dll se encuentra en la misma carpeta que el ejecutable");
+                return false;
+            }
             if (folderBrowserDialog1.SelectedPath.Equals(""))
             {
                 return false;
