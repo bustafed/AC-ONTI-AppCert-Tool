@@ -7,7 +7,6 @@ using System.IO;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Drawing;
 
 namespace WindowsFormsApp1
@@ -19,6 +18,7 @@ namespace WindowsFormsApp1
         string pathToCert = "";
         string pathToKey = "";
         string pfxName = "";
+        bool pwdChanged = false;
 
         public Form2()
         {
@@ -102,7 +102,7 @@ namespace WindowsFormsApp1
             if (result == DialogResult.OK)
             {
                 textBox1.Font = new Font(textBox1.Font, FontStyle.Regular);
-                textBox1.Text = openFileDialog1.FileName;
+                textBox1.Text = " " + openFileDialog1.SafeFileName;
                 pathToCert = openFileDialog1.FileName;
                 pfxName = openFileDialog1.SafeFileName.Replace(".cer", "");
             }
@@ -116,7 +116,7 @@ namespace WindowsFormsApp1
             if (result == DialogResult.OK)
             {
                 textBox2.Font = new Font(textBox2.Font, FontStyle.Regular);
-                textBox2.Text = openFileDialog1.FileName;
+                textBox2.Text = " " + openFileDialog1.SafeFileName;
                 pathToKey = openFileDialog1.FileName;
             }
         }
@@ -127,7 +127,7 @@ namespace WindowsFormsApp1
             if (result == DialogResult.OK)
             {
                 textBox3.Font = new Font(textBox3.Font, FontStyle.Regular);
-                textBox3.Text = folderBrowserDialog1.SelectedPath;
+                textBox3.Text = " " + folderBrowserDialog1.SelectedPath;
             }
         }
 
@@ -142,6 +142,10 @@ namespace WindowsFormsApp1
                 return false;
             }
             if (textBox2.Text.Equals("Debe seleccionar un archivo"))
+            {
+                return false;
+            }
+            if (!pwdChanged)
             {
                 return false;
             }
@@ -186,7 +190,15 @@ namespace WindowsFormsApp1
             {
                 textBox5.PasswordChar = '\0';
                 textBox5.Font = new Font(textBox5.Font, FontStyle.Italic);
-                textBox5.Text = "Ingresar contraseña para el PFX";
+                textBox5.Text = "Confirmar contraseña";
+            }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            if (!textBox4.Text.Equals("Ingresar contraseña para el PFX") && !textBox4.Text.Equals(""))
+            {
+                pwdChanged = true;
             }
         }
     }

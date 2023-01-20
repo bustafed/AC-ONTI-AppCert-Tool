@@ -131,6 +131,7 @@
             this.textBox4.Size = new System.Drawing.Size(172, 20);
             this.textBox4.TabIndex = 4;
             this.textBox4.Text = "Ingresar contraseña para el PFX";
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             this.textBox4.Enter += new System.EventHandler(this.textBox4_Enter);
             this.textBox4.Leave += new System.EventHandler(this.textBox4_Leave);
             // 

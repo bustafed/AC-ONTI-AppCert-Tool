@@ -64,7 +64,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(225, 20);
             this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "Ej: GDE Nombre del Organismo";
+            this.textBox1.Text = "Nombre de la aplicación";
             this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
             this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
@@ -77,7 +77,6 @@
             this.textBox2.Size = new System.Drawing.Size(225, 20);
             this.textBox2.TabIndex = 2;
             this.textBox2.Text = "CUIT del Organismo, sin guiones";
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.textBox2.Enter += new System.EventHandler(this.textBox2_Enter);
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             this.textBox2.Leave += new System.EventHandler(this.textBox2_Leave);

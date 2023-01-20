@@ -54,7 +54,7 @@ namespace WindowsFormsApp1
             {
                 return false;
             }
-            if (textBox1.Text.Equals("Ej: GDE Nombre del Organismo"))
+            if (textBox1.Text.Equals("Nombre de la aplicación"))
             {
                 return false;
             }
@@ -157,13 +157,13 @@ namespace WindowsFormsApp1
             if (textBox1.Text.Equals(""))
             {
                 textBox1.Font = new Font(textBox1.Font, FontStyle.Italic);
-                textBox1.Text = "Ej: GDE Nombre del Organismo";
+                textBox1.Text = "Nombre de la aplicación";
             }
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            if (textBox1.Text.Equals("Ej: GDE Nombre del Organismo"))
+            if (textBox1.Text.Equals("Nombre de la aplicación"))
             {
                 textBox1.Text = "";
                 textBox1.Font = new Font(textBox1.Font, FontStyle.Regular);
@@ -248,11 +248,6 @@ namespace WindowsFormsApp1
         {
             Form2 form2 = new Form2();
             form2.Show();
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
