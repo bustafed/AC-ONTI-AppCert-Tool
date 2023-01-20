@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace AC_ONTI_AppCert
 {
     partial class Form1
     {

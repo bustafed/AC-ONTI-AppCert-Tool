@@ -14,7 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace AC_ONTI_AppCert
 {
     public partial class Form1 : Form
     {

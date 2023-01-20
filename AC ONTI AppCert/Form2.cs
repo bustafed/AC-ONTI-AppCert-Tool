@@ -9,7 +9,7 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
 using System.Drawing;
 
-namespace WindowsFormsApp1
+namespace AC_ONTI_AppCert
 {
     public partial class Form2 : Form
     {
