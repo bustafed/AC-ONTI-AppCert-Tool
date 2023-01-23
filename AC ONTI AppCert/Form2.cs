@@ -70,11 +70,16 @@ namespace AC_ONTI_AppCert
                             byte[] pkcs12 = certWithKey.Export(X509ContentType.Pfx, textBox4.Text);
                             File.WriteAllBytes(folderBrowserDialog1.SelectedPath + "/" + pfxName + ".pfx", pkcs12);
                         }
-                    } catch (Exception e){ 
+                    } catch (Exception e){
                         if (e.Message.Equals("The provided key does not match the public key for this certificate.\r\nParameter name: privateKey"))
                         {
                             MessageBox.Show("La clave privada no corresponde al certificado seleccionado.\n" +
                                 "Asegúrese de elegir la clave privada que fue generada junto al CSR.");
+                            return false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error: " + e.Message);
                             return false;
                         }
                     }
