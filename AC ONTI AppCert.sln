@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC ONTI AppCert", "AC ONTI AppCert\AC ONTI AppCert.csproj", "{90F4CA04-0489-4388-8B87-EC8E81D39829}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AppCert Setup", "AppCert Setup\AppCert Setup.vdproj", "{02332D2A-B235-424D-9842-EAE99E8BC817}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{90F4CA04-0489-4388-8B87-EC8E81D39829}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90F4CA04-0489-4388-8B87-EC8E81D39829}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90F4CA04-0489-4388-8B87-EC8E81D39829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02332D2A-B235-424D-9842-EAE99E8BC817}.Debug|Any CPU.ActiveCfg = Debug
+		{02332D2A-B235-424D-9842-EAE99E8BC817}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
