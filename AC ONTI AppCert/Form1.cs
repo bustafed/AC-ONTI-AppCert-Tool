@@ -5,6 +5,7 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
+using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Pkcs;
 using Org.BouncyCastle.Security;
 using System;
@@ -12,7 +13,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AC_ONTI_AppCert
 {
@@ -123,20 +126,16 @@ namespace AC_ONTI_AppCert
                 csr[1] = Convert.ToBase64String(pkcs10CertificationRequest.GetEncoded());
                 csr[2] = "-----END CERTIFICATE REQUEST-----";
 
+                TextWriter textWriter = new StringWriter();
+                PemWriter pemWriter = new PemWriter(textWriter);
+                pemWriter.WriteObject(pair.Private);
+                pemWriter.Writer.Flush();
 
-                var pkInfo = PrivateKeyInfoFactory.CreatePrivateKeyInfo(pair.Private);
-
-                privateKey[0] = "-----BEGIN RSA PRIVATE KEY-----";
-                privateKey[1] = Convert.ToBase64String(pkInfo.GetDerEncoded());
-                privateKey[2] = "-----END RSA PRIVATE KEY-----";
-
-
-                File.WriteAllLines(folderBrowserDialog1.SelectedPath + "/key.key", privateKey);
+                File.WriteAllText(folderBrowserDialog1.SelectedPath + "/key.key", textWriter.ToString());
                 File.WriteAllLines(folderBrowserDialog1.SelectedPath + "/csr.csr", csr);
             }
             catch (Exception ex)
             {
-                // Note: handles errors on the page. Redirect to error page.
                 MessageBox.Show(ex.Message);
             }
         }
@@ -248,6 +247,16 @@ namespace AC_ONTI_AppCert
         {
             Form2 form2 = new Form2();
             form2.Show();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            Regex regex = new Regex("[^0-9.-]+");
+            if (regex.IsMatch(textBox2.Text) && !textBox2.Text.Equals("CUIT del Organismo, sin guiones"))
+            {
+                MessageBox.Show("Por favor ingresar solamente caracteres numéricos");
+                textBox2.Text = "";
+            }
         }
     }
 }
