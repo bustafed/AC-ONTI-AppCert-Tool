@@ -49,7 +49,7 @@ namespace AC_ONTI_AppCert
                     GeneratePkcs10(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, RootLenght.RootLength2048, out csr, out key);
 
                     MessageBox.Show("CSR y KEY generados con éxito.\n" +
-                        "No elimine ni divulgue el archivo KEY.");
+                        "No elimine ni divulgue el archivo KEY ni su contraseña.");
                     passDiagComplete = false;
                 }
                 else
