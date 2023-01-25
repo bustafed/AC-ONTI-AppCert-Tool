@@ -15,7 +15,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace AC_ONTI_AppCert
 {
@@ -32,7 +31,8 @@ namespace AC_ONTI_AppCert
             
         }
 
-        FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
+        public static FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
+        public static bool passDiagComplete = false;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -41,9 +41,20 @@ namespace AC_ONTI_AppCert
 
             if (validator())
             {
-                GeneratePkcs10(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, RootLenght.RootLength2048, out csr, out key);
-                MessageBox.Show("CSR y KEY generados con éxito.\n" +
-                    "No elimine ni divulgue el archivo KEY.");
+                Form3 form3 = new Form3();
+                form3.ShowDialog();
+                if (passDiagComplete)
+                {
+                    GeneratePkcs10(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, RootLenght.RootLength2048, out csr, out key);
+
+                    MessageBox.Show("CSR y KEY generados con éxito.\n" +
+                        "No elimine ni divulgue el archivo KEY.");
+                    passDiagComplete = false;
+                }
+                else
+                {
+                    MessageBox.Show("Debe ingresar una contraseña para proteger la clave privada");
+                }
             }
             else
             {
@@ -87,12 +98,7 @@ namespace AC_ONTI_AppCert
             return true;
         }
 
-        public static void asd()
-        {
-            MessageBox.Show("SDsda");
-        }
-
-        public void GeneratePkcs10
+        public static void GeneratePkcs10
             (string commonName, string sn, string org, string orgUnit,
              RootLenght rootLength, out string[] csr, out string[] privateKey)
         {
@@ -251,7 +257,7 @@ namespace AC_ONTI_AppCert
         private void button3_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
-            form2.Show();
+            form2.ShowDialog();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
