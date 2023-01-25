@@ -87,7 +87,12 @@ namespace AC_ONTI_AppCert
             return true;
         }
 
-        private void GeneratePkcs10
+        public static void asd()
+        {
+            MessageBox.Show("SDsda");
+        }
+
+        public void GeneratePkcs10
             (string commonName, string sn, string org, string orgUnit,
              RootLenght rootLength, out string[] csr, out string[] privateKey)
         {
@@ -140,7 +145,7 @@ namespace AC_ONTI_AppCert
             }
         }
 
-        private enum RootLenght
+        public enum RootLenght
         {
 
             RootLength2048 = 2048,

@@ -27,6 +27,7 @@ namespace AC_ONTI_AppCert
 
         private void button4_Click(object sender, EventArgs e)
         {
+            Form1.asd();
             if (validator())
             {
                 if (textBox4.Text.Equals(textBox5.Text))
