@@ -60,12 +60,22 @@ namespace AC_ONTI_AppCert
             using (X509Certificate2 cert = new X509Certificate2(pathToCert))
             {
                 String base64 = File.ReadAllText(pathToKey);
+                StreamReader sr = new StreamReader(pathToKey);
+                string privateKeyPass = "1234";
+                var pf = new PasswordFinder(privateKeyPass);
+                PemReader pr = new PemReader(sr, pf);
+                AsymmetricCipherKeyPair KeyPair = (AsymmetricCipherKeyPair)pr.ReadObject();
+                RSAParameters rsa =
+                        DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)KeyPair.Private);
+
+                RSACryptoServiceProvider csp = new RSACryptoServiceProvider();// cspParams);
+                csp.ImportParameters(rsa);
 
                 using (RSA key = RSA.Create())
                 {
                     try
                     {
-                        using (X509Certificate2 certWithKey = cert.CopyWithPrivateKey(ImportPrivateKey(base64)))
+                        using (X509Certificate2 certWithKey = cert.CopyWithPrivateKey(csp))
                         {
                             byte[] pkcs12 = certWithKey.Export(X509ContentType.Pfx, textBox4.Text);
                             File.WriteAllBytes(folderBrowserDialog1.SelectedPath + "/" + pfxName + ".pfx", pkcs12);
@@ -204,6 +214,22 @@ namespace AC_ONTI_AppCert
             if (!textBox4.Text.Equals("Ingresar contraseña para el PFX") && !textBox4.Text.Equals(""))
             {
                 pwdChanged = true;
+            }
+        }
+
+        private class PasswordFinder : IPasswordFinder
+        {
+            private string password;
+
+            public PasswordFinder(string password)
+            {
+                this.password = password;
+            }
+
+
+            public char[] GetPassword()
+            {
+                return password.ToCharArray();
             }
         }
     }
