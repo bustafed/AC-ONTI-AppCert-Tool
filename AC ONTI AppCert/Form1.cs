@@ -33,6 +33,7 @@ namespace AC_ONTI_AppCert
 
         public static FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
         public static bool passDiagComplete = false;
+        public static String pKeyPass = "";
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -139,7 +140,7 @@ namespace AC_ONTI_AppCert
 
                 TextWriter textWriter = new StringWriter();
                 PemWriter pemWriter = new PemWriter(textWriter);
-                pemWriter.WriteObject(pair.Private);
+                pemWriter.WriteObject(pair.Private, "AES-256-CBC", pKeyPass.ToCharArray(), new SecureRandom());
                 pemWriter.Writer.Flush();
 
                 File.WriteAllText(folderBrowserDialog1.SelectedPath + "/key.key", textWriter.ToString());
