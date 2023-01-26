@@ -61,8 +61,7 @@ namespace AC_ONTI_AppCert
             {
                 String base64 = File.ReadAllText(pathToKey);
                 StreamReader sr = new StreamReader(pathToKey);
-                string privateKeyPass = "1234";
-                var pf = new PasswordFinder(privateKeyPass);
+                var pf = new PasswordFinder(Globals.pKeyPass);
                 PemReader pr = new PemReader(sr, pf);
                 AsymmetricCipherKeyPair KeyPair = (AsymmetricCipherKeyPair)pr.ReadObject();
                 RSAParameters rsa =
