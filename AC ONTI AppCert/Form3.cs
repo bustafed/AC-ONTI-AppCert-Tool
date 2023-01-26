@@ -19,7 +19,7 @@ namespace AC_ONTI_AppCert
             if (textBox1.Text.Equals(textBox2.Text))
             {
                 passDiagComplete = true;
-                pKeyPass = textBox1.Text;
+                Globals.pKeyPass = textBox1.Text;
                 this.Hide();
             }
             else

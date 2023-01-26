@@ -227,7 +227,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "AC-ONTI AppCert v1.0";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

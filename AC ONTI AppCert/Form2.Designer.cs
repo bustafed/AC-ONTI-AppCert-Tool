@@ -1,6 +1,6 @@
 ﻿namespace AC_ONTI_AppCert
 {
-    partial class Form2
+    partial class pfxCreator
     {
         /// <summary>
         /// Required designer variable.
@@ -164,7 +164,7 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             // 
-            // Form2
+            // pfxCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -172,8 +172,9 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.Name = "Form2";
+            this.Name = "pfxCreator";
             this.Text = "PFX";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form2_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

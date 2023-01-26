@@ -11,7 +11,7 @@ using System.Drawing;
 
 namespace AC_ONTI_AppCert
 {
-    public partial class Form2 : Form
+    public partial class pfxCreator : Form
     {
         FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
         OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -20,7 +20,7 @@ namespace AC_ONTI_AppCert
         string pfxName = "";
         bool pwdChanged = false;
 
-        public Form2()
+        public pfxCreator()
         {
             InitializeComponent();
         }
@@ -130,6 +130,9 @@ namespace AC_ONTI_AppCert
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
+                Globals.pKeyPass = "";
+                Form4 form4 = new Form4();
+                form4.ShowDialog();
                 textBox2.Font = new Font(textBox2.Font, FontStyle.Regular);
                 textBox2.Text = " " + openFileDialog1.SafeFileName;
                 pathToKey = openFileDialog1.FileName;
@@ -231,6 +234,13 @@ namespace AC_ONTI_AppCert
             {
                 return password.ToCharArray();
             }
+        }
+
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Hide();
         }
     }
 }

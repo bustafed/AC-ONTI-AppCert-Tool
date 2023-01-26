@@ -26,27 +26,19 @@ namespace AC_ONTI_AppCert
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
         public static FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
         public static bool passDiagComplete = false;
-        public static String pKeyPass = "";
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string[] csr;
-            string[] key;
-
             if (validator())
             {
+                Globals.pKeyPass = "";
                 Form3 form3 = new Form3();
                 form3.ShowDialog();
                 if (passDiagComplete)
                 {
-                    GeneratePkcs10(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, RootLenght.RootLength2048, out csr, out key);
+                    GeneratePkcs10(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, RootLenght.RootLength2048);
 
                     MessageBox.Show("CSR y KEY generados con éxito.\n" +
                         "No elimine ni divulgue el archivo KEY ni su contraseña.");
@@ -101,10 +93,10 @@ namespace AC_ONTI_AppCert
 
         public static void GeneratePkcs10
             (string commonName, string sn, string org, string orgUnit,
-             RootLenght rootLength, out string[] csr, out string[] privateKey)
+             RootLenght rootLength)
         {
-            csr = new string[3];
-            privateKey = new string[3];
+            string[] csr = new string[3];
+
 
             try
             {
@@ -140,7 +132,7 @@ namespace AC_ONTI_AppCert
 
                 TextWriter textWriter = new StringWriter();
                 PemWriter pemWriter = new PemWriter(textWriter);
-                pemWriter.WriteObject(pair.Private, "AES-256-CBC", pKeyPass.ToCharArray(), new SecureRandom());
+                pemWriter.WriteObject(pair.Private, "AES-256-CBC", Globals.pKeyPass.ToCharArray(), new SecureRandom());
                 pemWriter.Writer.Flush();
 
                 File.WriteAllText(folderBrowserDialog1.SelectedPath + "/key.key", textWriter.ToString());
@@ -257,8 +249,10 @@ namespace AC_ONTI_AppCert
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
-            form2.ShowDialog();
+            pfxCreator form2 = new pfxCreator();
+            form2.Show();
+            Globals.pKeyPass = "";
+            this.Hide();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -269,6 +263,11 @@ namespace AC_ONTI_AppCert
                 MessageBox.Show("Por favor ingresar solamente caracteres numéricos");
                 textBox2.Text = "";
             }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
