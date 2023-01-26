@@ -47,6 +47,7 @@ namespace AC_ONTI_AppCert
             else
             {
                 Globals.pKeyPass= textBox1.Text;
+                this.Close();
             }
         }
 

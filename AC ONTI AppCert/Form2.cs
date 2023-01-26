@@ -60,16 +60,47 @@ namespace AC_ONTI_AppCert
             using (X509Certificate2 cert = new X509Certificate2(pathToCert))
             {
                 String base64 = File.ReadAllText(pathToKey);
-                StreamReader sr = new StreamReader(pathToKey);
-                var pf = new PasswordFinder(Globals.pKeyPass);
-                PemReader pr = new PemReader(sr, pf);
-                AsymmetricCipherKeyPair KeyPair = (AsymmetricCipherKeyPair)pr.ReadObject();
-                RSAParameters rsa =
-                        DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)KeyPair.Private);
+                RSACryptoServiceProvider csp = new RSACryptoServiceProvider();
+                if (Globals.pKeyPass.Equals(""))
+                {
+                    try
+                    {
+                        csp = ImportPrivateKey(base64);
+                    }catch(Exception ex)
+                    {
+                        if (ex.Message.Equals("No password finder specified, but a password is required"))
+                        {
+                            MessageBox.Show("La clave privada está protegida con contraseña.\n" +
+                                "Asegúrese de escribirla al seleccionar el archivo KEY");
+                            textBox2.Font = new Font(textBox2.Font, FontStyle.Italic);
+                            textBox2.Text = "Debe seleccionar un archivo";
+                            return false;
+                        }
+                    }
 
-                RSACryptoServiceProvider csp = new RSACryptoServiceProvider();// cspParams);
-                csp.ImportParameters(rsa);
-
+                }
+                else
+                {
+                    try
+                    {
+                        StreamReader sr = new StreamReader(pathToKey);
+                        var pf = new PasswordFinder(Globals.pKeyPass);
+                        PemReader pr = new PemReader(sr, pf);
+                        AsymmetricCipherKeyPair KeyPair = (AsymmetricCipherKeyPair)pr.ReadObject();
+                        RSAParameters rsa =
+                                DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)KeyPair.Private);
+                        csp.ImportParameters(rsa);
+                    }catch (Exception ex)
+                    {
+                        if (ex.Message.Equals("pad block corrupted"))
+                        {
+                            MessageBox.Show("La contraseña de la clave privada es incorrecta.\nVuelva a seleccionar el archivo KEY.");
+                            textBox2.Font = new Font(textBox2.Font, FontStyle.Italic);
+                            textBox2.Text = "Debe seleccionar un archivo";
+                            return false;
+                        }
+                    }
+                }
                 using (RSA key = RSA.Create())
                 {
                     try
