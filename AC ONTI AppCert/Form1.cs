@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -137,6 +139,12 @@ namespace AC_ONTI_AppCert
 
                 File.WriteAllText(folderBrowserDialog1.SelectedPath + "/key.key", textWriter.ToString());
                 File.WriteAllLines(folderBrowserDialog1.SelectedPath + "/csr.csr", csr);
+
+                SHA256 mySHA256 = SHA256.Create();
+                byte[] hashValue = mySHA256.ComputeHash(File.ReadAllBytes(folderBrowserDialog1.SelectedPath + "/csr.csr"));
+
+                File.WriteAllText(folderBrowserDialog1.SelectedPath + "/hash_csr.txt", 
+                    BitConverter.ToString(hashValue).Replace("-", string.Empty));
             }
             catch (Exception ex)
             {
