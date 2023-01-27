@@ -137,12 +137,13 @@ namespace AC_ONTI_AppCert
                 pemWriter.WriteObject(pair.Private, "AES-256-CBC", Globals.pKeyPass.ToCharArray(), new SecureRandom());
                 pemWriter.Writer.Flush();
 
+                //saving key and csr
                 File.WriteAllText(folderBrowserDialog1.SelectedPath + "/key.key", textWriter.ToString());
                 File.WriteAllLines(folderBrowserDialog1.SelectedPath + "/csr.csr", csr);
 
+                //saving csr sha256 hash
                 SHA256 mySHA256 = SHA256.Create();
                 byte[] hashValue = mySHA256.ComputeHash(File.ReadAllBytes(folderBrowserDialog1.SelectedPath + "/csr.csr"));
-
                 File.WriteAllText(folderBrowserDialog1.SelectedPath + "/hash_csr.txt", 
                     BitConverter.ToString(hashValue).Replace("-", string.Empty));
             }
