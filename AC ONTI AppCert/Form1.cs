@@ -3,6 +3,7 @@ using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Generators;
+using Org.BouncyCastle.Crypto.Operators;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.OpenSsl;
@@ -125,7 +126,7 @@ namespace AC_ONTI_AppCert
 
                 var subject = new X509Name(attributes.Keys.ToList(), attributes);
 
-                var pkcs10CertificationRequest = new Pkcs10CertificationRequest
+                var pkcs10CertificationRequest = new Org.BouncyCastle.Pkcs.Pkcs10CertificationRequest
                     (PkcsObjectIdentifiers.Sha256WithRsaEncryption.Id, subject, pair.Public, null, pair.Private);
 
                 csr[0] = "-----BEGIN CERTIFICATE REQUEST-----";
@@ -277,6 +278,31 @@ namespace AC_ONTI_AppCert
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // Generate a new RSA key pair
+            var keyPairGenerator = new RsaKeyPairGenerator();
+            keyPairGenerator.Init(new KeyGenerationParameters(new SecureRandom(), 2048));
+            var keyPair = keyPairGenerator.GenerateKeyPair();
+
+            // Create a PKCS#10 Certificate Signing Request (CSR) using the key pair
+            var subjectDN = new X509Name("CN=sin valor legal,C=AR,serialNumber=CUIT 00000000000,O=sin valor legal,OU=sin valor legal");
+            var csr = new Pkcs10CertificationRequest("SHA256WithRSA", subjectDN, keyPair.Public, null, keyPair.Private);
+
+            // Write the CSR to a file in PEM format
+            var pemWriter = new PemWriter(new StreamWriter(".\\example.csr.pem"));
+            pemWriter.WriteObject(csr);
+            pemWriter.Writer.Flush();
+
+            TextWriter textWriter = new StringWriter();
+            PemWriter pemWriter2 = new PemWriter(textWriter);
+            pemWriter2.WriteObject(keyPair.Private);
+            pemWriter2.Writer.Flush();
+
+            //saving key and csr
+            File.WriteAllText(".\\sarasakey.key", textWriter.ToString());
         }
     }
 }
